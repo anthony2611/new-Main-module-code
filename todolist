@@ -1,9 +1,0 @@
-wifi                    | x
-Serial                  | x
-relay                   |
-OTA                     | x
-MQTT                    | x
-motion-detector         | x
-logo                    | x
-LDR                     | x
-dells-temps             | x
