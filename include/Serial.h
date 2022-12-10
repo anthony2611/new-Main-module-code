@@ -1,0 +1,27 @@
+//voids setup serial monitor
+void Serial_setup() {
+  Serial.begin(Serial_baudrate);
+  LOGO();
+  Serial.println("");
+
+  //print the config to the serial monitor
+    Serial.println("#############################################################");
+    Serial.print("monitor speed: ");
+    Serial.println(Serial_baudrate);
+    Serial.print("device name: ");
+    Serial.println(device_name);
+    Serial.print("mqtt server ip: ");
+    Serial.println(mqtt_server_ip);
+    Serial.print("mqtt port: ");
+    Serial.println(mqtt_port);
+    Serial.print("mqtt topic sub: ");
+    Serial.println(mqtt_topic_sub);
+    Serial.print("mqtt topic pub: ");
+    Serial.println(mqtt_topic_pub);
+    Serial.print("mqtt topic pub status: ");
+    Serial.println(mqtt_topic_pub_status);
+    Serial.print("mqtt client id: ");
+    Serial.println(mqtt_client_id);
+    Serial.println("#############################################################");
+    
+}
