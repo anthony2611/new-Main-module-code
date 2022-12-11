@@ -4,48 +4,57 @@ String payloadString = "";
 
 //the callback function for the mqtt mqtt_client
 void callback(char* topic, byte* payload, unsigned int length) {
-  Serial.print("Message arrived [");
+  Serial.print("Message arrived at tpic: ");
   Serial.print(topic);
-  Serial.print("] ");
+  Serial.print("   Message:");
   for (int i = 0; i < length; i++) {
       payloadString += (char)payload[i];
   }
   Serial.println(payloadString);
-      // if the payload is "hello mqtt_client" then print "hello server" to status topic
-    if (payloadString == "hello mqtt_client") {
-        mqtt_client.publish(mqtt_topic_pub_status, "hello server");
-        Serial.println("hello server");
-        payloadString.clear();
-    }
-    //if the payload is "get" send data is set to true of the sensors
-    //the send data bool is the main trigger to send data of any connetet sensor 
-    if (payloadString == "get") {
-        send_data = true;
-        Serial.println("send data to server");
-        payloadString.clear();
-    }
-    //if the payload is "Get IP" publish the ip to the mqtt topic "info/ip"
-    if (payloadString == "get ip") {
-        String ip = WiFi.localIP().toString().c_str();
-        mqtt_client.publish(mqtt_topic_IP,ip.c_str());
-        Serial.println("send ip to server");
-        payloadString.clear();
-    }
-    //if the payload is "Get MAC" publish the mac to the mqtt topic "info/mac"
-    if (payloadString == "get mac") {
-        String mac = WiFi.macAddress().c_str();
-        mqtt_client.publish(mqtt_topic_MAC,mac.c_str());
-        Serial.println("send mac to server");
-        payloadString.clear();
-    }
-    //if the payload is not clear the print "unknown command" to the mqtt topic "info/status"
-    if (payloadString != "") {
-        mqtt_client.publish(mqtt_topic_pub_status, "unknown command");
-        Serial.println("unknown command");
-        payloadString.clear();
-    }
-    
-    //mqtt_client.publish(mqtt_topic_sub, "");
+  //checks if the topic is the command topic
+  if (String(topic) == mqtt_topic_sub) {
+
+        // if the payload is "hello mqtt_client" then print "hello server" to status topic
+      if (payloadString == "hello mqtt_client") {
+          mqtt_client.publish(mqtt_topic_pub_status, "hello server");
+          Serial.println("hello server");
+          payloadString.clear();
+      }
+      //if the payload is "get" send data is set to true of the sensors
+      //the send data bool is the main trigger to send data of any connetet sensor 
+      if (payloadString == "get") {
+          send_data = true;
+          Serial.println("send data to server");
+          payloadString.clear();
+      }
+      //if the payload is "Get IP" publish the ip to the mqtt topic "info/ip"
+      if (payloadString == "get ip") {
+          String ip = WiFi.localIP().toString().c_str();
+          mqtt_client.publish(mqtt_topic_IP,ip.c_str());
+          Serial.println("send ip to server");
+          payloadString.clear();
+      }
+      //if the payload is "Get MAC" publish the mac to the mqtt topic "info/mac"
+      if (payloadString == "get mac") {
+          String mac = WiFi.macAddress().c_str();
+          mqtt_client.publish(mqtt_topic_MAC,mac.c_str());
+          Serial.println("send mac to server");
+          payloadString.clear();
+      }
+      //if the payload is not clear the print "unknown command" to the mqtt topic "info/status"
+      if (payloadString != "") {
+          mqtt_client.publish(mqtt_topic_pub_status, "unknown command");
+          Serial.println("unknown command");
+          payloadString.clear();
+      }
+      //clean the command topic
+      mqtt_client.publish(mqtt_topic_sub, "");
+  }
+  //make topic and payload global
+  mqtt_topic = topic;
+  mqtt_payload = payloadString;
+
+
 }
 
 //mqtt reconnect function
