@@ -48,9 +48,9 @@
 //please config the actuators you whant to have
  #define relay                            //relay if you have one or more uncomment the relays you have and set the pin number for the relays and unncomment the relay topic
         #define relay1 4                   //relay 1 pin (digital pin)
- //       #define relay2 5                   //relay 2 pin (digital pin)
- //       #define relay3 6                   //relay 3 pin (digital pin)
- //       #define relay4 7                   //relay 4 pin (digital pin)
+        #define relay2 5                   //relay 2 pin (digital pin)
+        #define relay3 14                  //relay 3 pin (digital pin)
+        #define relay4 12                  //relay 4 pin (digital pin)   
 
 
 

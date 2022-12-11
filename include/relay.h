@@ -5,18 +5,22 @@
         #ifdef relay1
             pinMode(relay1, OUTPUT);
             mqtt_client.subscribe(mqtt_topic_relay1);
+            Serial.println("relay1 setup");
         #endif
         #ifdef relay2
             pinMode(relay2, OUTPUT);
             mqtt_client.subscribe(mqtt_topic_relay2);
+            Serial.println("relay2 setup");
         #endif
         #ifdef relay3
             pinMode(relay3, OUTPUT);
             mqtt_client.subscribe(mqtt_topic_relay3);
+            Serial.println("relay3 setup");
         #endif
         #ifdef relay4
             pinMode(relay4, OUTPUT);
             mqtt_client.subscribe(mqtt_topic_relay4);
+            Serial.println("relay4 setup");
         #endif
     }
 
