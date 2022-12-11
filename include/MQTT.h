@@ -53,6 +53,9 @@ void callback(char* topic, byte* payload, unsigned int length) {
   //make topic and payload global
   mqtt_topic = topic;
   mqtt_payload = payloadString;
+  //clear the payloadString
+  payloadString.clear();
+  
 
 
 }
