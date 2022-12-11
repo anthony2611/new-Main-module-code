@@ -16,6 +16,9 @@ void dallas_temps_loop(int bus_pin, bool send){
         const char* mqtt_device_topic_temp = mqtt_device_topic_string_temp.c_str();
         sensors.requestTemperatures(); 
         float tempC = sensors.getTempCByIndex(0);
+        Serial.print("Temp: ");
+        Serial.println(tempC);
+        Serial.println("Sending temp to server");
         //send temp value
         mqtt_client.publish(mqtt_device_topic_temp, String(tempC).c_str());
         
