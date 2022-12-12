@@ -1,10 +1,11 @@
 
 ![Logo](img/1280px-Aperture_Laboratories_Logo_wiht.png)
 
+Aperture Science Sweet Home System model code  
+This is the main model code for [MQTT](https://en.wikipedia.org/wiki/MQTT) clients in the Sweet Home System
+It is designed to run on [esp8266](https://en.wikipedia.org/wiki/ESP8266) boards for exsample [Wemos_D1](https://www.wemos.cc/en/latest/d1/index.html) but it will run on any esp8266 board 
+the main function is to provide a sensor and relay interface for the server over MQTT 
 
-Aperture Science Sweet Home System modul code  
-
-This is the main modul code for mqtt clients in the Sweet Home System
 
 
 ## Features
@@ -13,13 +14,15 @@ This is the main modul code for mqtt clients in the Sweet Home System
 - OTA updates
 - LDR sensor
 - Temperature sensor 
+- Relay
 
 ## To do:
 
-- Relay moule
+- Relay (debugging)
 
 - Optimizations
-
+ 
+- MQTT rewrite 
 
 ## Variables you need to change
 
@@ -43,6 +46,8 @@ There are some values you need to change
 
 `main_topic` this is the main topic under every module is shown in the broker 
 
+`relay_tpoic` this is the topic under whitch the relays shown up
+
 
 
 
@@ -59,6 +64,7 @@ There are some values you need to change
 | `mqtt_port` | `uint16_t` | **Not Required** If you have default mqtt port  |
 | `device_name` | `char*` | **Required**. this needs to be unique for every module  |
 | `main_topic` | `string` | **Not Required** default is `sensor/`  |
+| `relay_tpoic` | `string` | **Not Required** default is `relays/`  |
 
 
 ## Some more explenation
