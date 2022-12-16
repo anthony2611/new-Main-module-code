@@ -3,7 +3,7 @@
 
 Aperture Science Sweet Home System model code  
 This is the main model code for [MQTT](https://en.wikipedia.org/wiki/MQTT) clients in the Sweet Home System
-It is designed to run on [esp8266](https://en.wikipedia.org/wiki/ESP8266) boards for exsample [Wemos_D1](https://www.wemos.cc/en/latest/d1/index.html) but it will run on any esp8266 board 
+It is designed to run on [esp8266](https://en.wikipedia.org/wiki/ESP8266) boards for example [Wemos_D1](https://www.wemos.cc/en/latest/d1/index.html) but it will run on any esp8266 board 
 the main function is to provide a sensor and relay interface for the server over MQTT 
 
 
