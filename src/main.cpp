@@ -16,6 +16,13 @@
 //?╚═╝..╚═╝╚═╝.....╚══════╝╚═╝..╚═╝...╚═╝....╚═════╝.╚═╝..╚═╝╚══════╝....╚══════╝.╚═════╝╚═╝╚══════╝╚═╝..╚═══╝.╚═════╝╚══════╝
 
 //Moudule code for IOT systems form Aperture Science
+/*
+IoT system code for an ESP8266 microcontroller that uses Wi-Fi and MQTT to communicate with a server. It includes the ability to read data from various sensors and control actuators (relays).
+There are several configurations that need to be set up, including serial communication baud rate, Wi-Fi SSIDs and passwords, MQTT server IP and port, and device name.
+
+
+
+*/
 
 //################################################# Config ##############################################################
 
@@ -28,6 +35,8 @@
   //fallback wifi config                
   #define WIFI_SSID2 ""         //wifi name 2
   #define WIFI_PASSWORD2 ""                    //wifi password 2
+  //wifi attemts to connect
+  #define WIFI_ATTEMPTS 5
 
 //mqtt config
   #define mqtt_server_ip "192.168.178.44"     //mqtt server ip

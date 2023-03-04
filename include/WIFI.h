@@ -26,9 +26,9 @@ void wifi_connect(const char* ssid, const char* password, int attempts) {
 void WIFI_setup() {
   WiFi.mode(WIFI_STA);
   WiFi.hostname(device_name);
-  wifi_connect(WIFI_SSID1, WIFI_PASSWORD1, 5);
+  wifi_connect(WIFI_SSID1, WIFI_PASSWORD1, WIFI_ATTEMPTS);
   if (WiFi.status() != WL_CONNECTED) {
-    wifi_connect(WIFI_SSID2, WIFI_PASSWORD2, 5);
+    wifi_connect(WIFI_SSID2, WIFI_PASSWORD2, WIFI_ATTEMPTS);
   }
   
 }
