@@ -22,6 +22,22 @@ void wifi_connect(const char* ssid, const char* password, int attempts) {
   }
 }
 
+//wifi manager 
+void WIFI_manager() {
+  WiFiManager wifiManager;
+  wifiManager.setConfigPortalTimeout(200);
+  wifiManager.autoConnect(device_name);
+  if (WiFi.status() != WL_CONNECTED) {
+    Serial.println("connected");
+  } 
+  else {
+    Serial.println("not connected");
+    Serial.println("restarting in 3s");
+    delay(3000);
+    ESP.restart();
+  }
+}
+
 
 void WIFI_setup() {
   WiFi.mode(WIFI_STA);
@@ -29,6 +45,9 @@ void WIFI_setup() {
   wifi_connect(WIFI_SSID1, WIFI_PASSWORD1, WIFI_ATTEMPTS);
   if (WiFi.status() != WL_CONNECTED) {
     wifi_connect(WIFI_SSID2, WIFI_PASSWORD2, WIFI_ATTEMPTS);
+    if (WiFi.status() != WL_CONNECTED) {
+      WIFI_manager();
+    }
   }
   
 }
