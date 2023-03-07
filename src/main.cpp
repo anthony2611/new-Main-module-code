@@ -5,6 +5,9 @@
   #include <ESP8266WiFi.h>
   #include <PubSubClient.h>
   #include <ArduinoOTA.h>
+  #include <DNSServer.h>
+  #include <ESP8266WebServer.h>
+  #include <WiFiManager.h> 
 
 //################################################# Discription ##############################################################
 
@@ -41,9 +44,10 @@ There are several configurations that need to be set up, including serial commun
 //mqtt config
   #define mqtt_server_ip "192.168.178.44"     //mqtt server ip
   #define mqtt_port 1883                      //mqtt port
-  char* device_name = "XXX_ESP8266";         //device name PLEASE CHANGE 
+  char* device_name = "XXX_ESP8266";          //device name PLEASE CHANGE 
   String main_topic = "sensor/";              //the main topic for all devices
-  String relay_tpoic = "relays/";              //the relay topic for the relays if defined
+  String relay_tpoic = "relays/";             //the relay topic for the relays if defined
+  #define mqtt_attempts 5                      //mqtt attemts to connect
 
 
 //please config the sensors you whant to have
@@ -56,7 +60,8 @@ There are several configurations that need to be set up, including serial commun
         #define motion_detector_pin  3            //motion detector pin
 
 //please config the actuators you whant to have
- #define relay                            //relay if you have one or more uncomment the relays you have and set the pin number for the relays and unncomment the relay topic
+ #define relay                            //relay if you have one or more uncomment the relays you have and set the pin number for the relays 
+                                          //and unncomment the main relay topic
         #define relay1 4                   //relay 1 pin (digital pin)
         #define relay2 5                   //relay 2 pin (digital pin)
         #define relay3 14                  //relay 3 pin (digital pin)
@@ -101,6 +106,7 @@ There are several configurations that need to be set up, including serial commun
   #include <WIFI.h>
   #include <MQTT.h>
   #include <Serial.h>
+
 
 
   //includs for the sensor that are enabled
@@ -158,7 +164,7 @@ There are several configurations that need to be set up, including serial commun
     WIFI_setup();
     myOTAupdatesetup();
     PubSubClient_setup();
-    PubSubClient_first_connet();
+   
 
     //setup for the motion detection if enabled
     #ifdef motion_detector

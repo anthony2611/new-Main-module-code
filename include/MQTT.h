@@ -76,7 +76,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
 //mqtt reconnect function
 void PubSubClient_reconnect() {
-  if (!mqtt_client.connected() && connect_attempts < 8) {
+  while (!mqtt_client.connected() && connect_attempts <= mqtt_attempts) {
     mqtt_client.connect(device_name);
     Serial.print("Attempting MQTT connection...");
     if (mqtt_client.connect(device_name)) {
@@ -90,12 +90,20 @@ void PubSubClient_reconnect() {
       connect_attempts++;
     }
   }
-  if (connect_attempts == 7) {
+
+  if (connect_attempts >= mqtt_attempts) {
     Serial.println("MQTT connection failed");
-    Serial.println("Restarting ESP8266");
+    Serial.println("Restarting in 5 seconds");
     delay(5000);
      ESP.restart();
   }
+
+  String ip = WiFi.localIP().toString().c_str();
+  mqtt_client.publish(mqtt_topic_IP,ip.c_str());
+  Serial.println("send ip to server");
+  String mac = WiFi.macAddress().c_str();
+  mqtt_client.publish(mqtt_topic_MAC,mac.c_str());
+  Serial.println("send mac to server");
 
 }
 
@@ -110,15 +118,5 @@ void PubSubClient_setup() {
   }
 
 
-//called at the modul setup to send the server the ip and mac of the modul
-void PubSubClient_first_connet() {
-        String ip = WiFi.localIP().toString().c_str();
-        mqtt_client.publish(mqtt_topic_IP,ip.c_str());
-        Serial.println("send ip to server");
-        String mac = WiFi.macAddress().c_str();
-        mqtt_client.publish(mqtt_topic_MAC,mac.c_str());
-        Serial.println("send mac to server");
-
-}
 
 
