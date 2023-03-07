@@ -18,12 +18,8 @@ any other tpics will be ignored or processed somewhere else in the code for exam
 
 //the callback function for the mqtt mqtt_client
 void callback(char* topic, byte* payload, unsigned int length) {
-  Serial.print("Message arrived at tpic: ");
-  Serial.print(topic);
-  Serial.print("   Message:");
-  for (int i = 0; i < length; i++) {
-      payloadString += (char)payload[i];
-  }
+  String payloadString = String((char*)payload).substring(0, length);
+  Serial.printf("Message received on topic '%s': '%s'\n", topic, payloadString.c_str());
   Serial.println(payloadString);
   //checks if the topic is the command topic
   if (String(topic) == mqtt_topic_command) {

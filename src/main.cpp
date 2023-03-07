@@ -18,8 +18,8 @@
 //?██║..██║██║.....███████╗██║..██║...██║...╚██████╔╝██║..██║███████╗....███████║╚██████╗██║███████╗██║.╚████║╚██████╗███████╗
 //?╚═╝..╚═╝╚═╝.....╚══════╝╚═╝..╚═╝...╚═╝....╚═════╝.╚═╝..╚═╝╚══════╝....╚══════╝.╚═════╝╚═╝╚══════╝╚═╝..╚═══╝.╚═════╝╚══════╝
 
-//Moudule code for IOT systems form Aperture Science
 /*
+Moudule code for IOT systems form Aperture Science
 IoT system code for an ESP8266 microcontroller that uses Wi-Fi and MQTT to communicate with a server. It includes the ability to read data from various sensors and control actuators (relays).
 There are several configurations that need to be set up, including serial communication baud rate, Wi-Fi SSIDs and passwords, MQTT server IP and port, and device name.
 The sensors and actuators that are used are also configured in the code. The sensors that can be used are: Dallas temperature sensor, LDR sensor, and motion detector.
@@ -99,8 +99,6 @@ The sensors and actuators that are used are also configured in the code. The sen
   #include <MQTT.h>
   #include <Serial.h>
 
-
-
   //includs for the sensor that are enabled
     #ifdef dallas_temp
       //topic for the dell temp sensor
@@ -178,7 +176,7 @@ The sensors and actuators that are used are also configured in the code. The sen
     #ifdef motion_detector
       motino_detector_loop(motion_detector_pin,send_data);
     #endif
-    
+
     #ifdef relay
       relay_loop();
     #endif
