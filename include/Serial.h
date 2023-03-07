@@ -18,10 +18,8 @@ void Serial_setup() {
     Serial.println(mqtt_port);
     Serial.print("mqtt topic command: ");
     Serial.println(mqtt_topic_command);
-    Serial.print("mqtt topic pub: ");
-    Serial.println(mqtt_topic_pub);
     Serial.print("mqtt topic pub status: ");
-    Serial.println(mqtt_topic_pub_status);
+    Serial.println(mqtt_topic_status);
     Serial.print("mqtt client id: ");
     Serial.println(mqtt_client_id);
     Serial.println("#############################################################");

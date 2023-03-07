@@ -30,7 +30,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
         // if the payload is "hello mqtt_client" then print "hello server" to status topic
       if (payloadString == "hello mqtt_client") {
-          mqtt_client.publish(mqtt_topic_pub_status, "hello server");
+          mqtt_client.publish(mqtt_topic_status, "hello server");
           Serial.println("hello server");
           payloadString.clear();
       }
@@ -44,20 +44,20 @@ void callback(char* topic, byte* payload, unsigned int length) {
       //if the payload is "Get IP" publish the ip to the mqtt topic "info/ip"
       if (payloadString == "get ip") {
           String ip = WiFi.localIP().toString().c_str();
-          mqtt_client.publish(mqtt_topic_IP,ip.c_str());
+          mqtt_client.publish(mqtt_topic_ip,ip.c_str());
           Serial.println("send ip to server");
           payloadString.clear();
       }
       //if the payload is "Get MAC" publish the mac to the mqtt topic "info/mac"
       if (payloadString == "get mac") {
           String mac = WiFi.macAddress().c_str();
-          mqtt_client.publish(mqtt_topic_MAC,mac.c_str());
+          mqtt_client.publish(mqtt_topic_mac,mac.c_str());
           Serial.println("send mac to server");
           payloadString.clear();
       }
       //if the payload is not clear the print "unknown command" to the mqtt topic "info/status"
       if (payloadString != "") {
-          mqtt_client.publish(mqtt_topic_pub_status, "unknown command");
+          mqtt_client.publish(mqtt_topic_status, "unknown command");
           Serial.println("unknown command");
           payloadString.clear();
       }
@@ -99,10 +99,10 @@ void PubSubClient_reconnect() {
   }
 
   String ip = WiFi.localIP().toString().c_str();
-  mqtt_client.publish(mqtt_topic_IP,ip.c_str());
+  mqtt_client.publish(mqtt_topic_ip,ip.c_str());
   Serial.println("send ip to server");
   String mac = WiFi.macAddress().c_str();
-  mqtt_client.publish(mqtt_topic_MAC,mac.c_str());
+  mqtt_client.publish(mqtt_topic_mac,mac.c_str());
   Serial.println("send mac to server");
 
 }

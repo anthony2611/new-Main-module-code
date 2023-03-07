@@ -8,7 +8,7 @@ void motino_detector_loop(int motino_pin, bool send){
         //setup motion detector
         int motion_detector_state = digitalRead(motino_pin);
         //send motion value
-        mqtt_client.publish(mqtt_device_topic_motion, String(motion_detector_state).c_str());
+        mqtt_client.publish(mqtt_device_topic_motion_detector, String(motion_detector_state).c_str());
     }
 
     //sends a 1 or a 0 if the state of the motion detector is chanced
@@ -16,7 +16,7 @@ void motino_detector_loop(int motino_pin, bool send){
     {
         last_motion = digitalRead(motino_pin);
         //send motion value
-        mqtt_client.publish(mqtt_device_topic_motion, String(last_motion).c_str());
+        mqtt_client.publish(mqtt_device_topic_motion_detector, String(last_motion).c_str());
 
     }
     
