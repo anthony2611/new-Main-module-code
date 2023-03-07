@@ -84,18 +84,11 @@ The sensors and actuators that are used are also configured in the code. The sen
     String mqtt_payload;
 
       //gereating the mqtt_device_topic_string and any other mqtt stuff
-      String mqtt_device_topic_string = main_topic + device_name;           //device topic as string if needed
-      const char* mqtt_device_topic = mqtt_device_topic_string.c_str();     //device topic as char* if needed
-      String mqtt_topic_IP_string = mqtt_device_topic_string + "/ip";       //constructing the IP adress string
-      const char* mqtt_topic_IP = mqtt_topic_IP_string.c_str();             //converting IP string to a char*
-      String mqtt_topic_MAC_string = mqtt_device_topic_string + "/mac";     //constructing the Mac adress string
-      const char* mqtt_topic_MAC = mqtt_topic_MAC_string.c_str();           //converting the mac string to a char*
-      String mqtt_topic_command_string = mqtt_device_topic_string + "/command"; //constructing the command line string
-      const char* mqtt_topic_command = mqtt_topic_command_string.c_str();           //converting the command string to a char*
-      String mqtt_topic_pub_string = mqtt_device_topic_string + "/pub";     //not needed yet
-      const char* mqtt_topic_pub = mqtt_topic_pub_string.c_str();           //not needed yet
-      String mqtt_topic_pub_status_string = mqtt_device_topic_string + "/status"; //constructing the status string
-      const char* mqtt_topic_pub_status = mqtt_topic_pub_status_string.c_str();   //converting status string to a char*
+      String device_topic = main_topic + device_name;
+      const char* mqtt_topic_ip = (device_topic + "/ip").c_str();
+      const char* mqtt_topic_mac = (device_topic + "/mac").c_str();
+      const char* mqtt_topic_command = (device_topic + "/command").c_str();
+      const char* mqtt_topic_status = (device_topic + "/status").c_str();
 
 //################################################# MY Headers/Libs and some more string genrating ##############################################################
 #ifdef logo
@@ -111,45 +104,37 @@ The sensors and actuators that are used are also configured in the code. The sen
   //includs for the sensor that are enabled
     #ifdef dallas_temp
       //topic for the dell temp sensor
-      String mqtt_device_topic_string_temp = mqtt_device_topic_string + "/temp";
-      const char* mqtt_device_topic_temp = mqtt_device_topic_string_temp.c_str();
+      const char* mqtt_device_topic_temp = (device_topic + "/temp").c_str();
       #include <dells_temp.h>
     #endif
 
     #ifdef LDR
       //topic for the LDR
-      String mqtt_device_topic_string_LDR = mqtt_device_topic_string + "/LDR";
-      const char* mqtt_device_topic_LDR = mqtt_device_topic_string_LDR.c_str();
+      const char* mqtt_device_topic_LDR = (device_topic + "/LDR").c_str();
       #include <LDR.h>
     #endif
 
     #ifdef motion_detector
        //topic for the motion detector
-      String mqtt_device_topic_string_motion = mqtt_device_topic_string + "/motion";
-      const char* mqtt_device_topic_motion = mqtt_device_topic_string_motion.c_str();
+      const char* mqtt_device_topic_motion_detector = (device_topic + "/motion_detector").c_str();
       #include <motion_detector.h>
     #endif
 
     #ifdef relay
       //topic for the relays
-      String mqtt_topic_relay_string = relay_tpoic + device_name;           //device topic as string if needed
-      const char* mqtt_topic_relay = mqtt_topic_relay_string.c_str();       //device topic as char* if needed
+      String relay_topic = relay_tpoic + device_name;
       //making topic for eche defined relay
       #ifdef relay1
-        String mqtt_topic_relay1_string = mqtt_topic_relay_string + "/relay1";   //constructing the relay1 string
-        const char* mqtt_topic_relay1 = mqtt_topic_relay1_string.c_str();   //converting relay1 string to a char*
+        const char* mqtt_topic_relay1 = (relay_topic + "/relay1").c_str();
       #endif
       #ifdef relay2
-        String mqtt_topic_relay2_string = mqtt_topic_relay_string + "/relay2";   //constructing the relay2 string
-        const char* mqtt_topic_relay2 = mqtt_topic_relay2_string.c_str();   //converting relay2 string to a char*
+        const char* mqtt_topic_relay2 = (relay_topic + "/relay2").c_str();
       #endif
       #ifdef relay3
-        String mqtt_topic_relay3_string = mqtt_topic_relay_string + "/relay3";   //constructing the relay3 string
-        const char* mqtt_topic_relay3 = mqtt_topic_relay3_string.c_str();   //converting relay3 string to a char*
+        const char* mqtt_topic_relay3 = (relay_topic + "/relay3").c_str();
       #endif
       #ifdef relay4
-        String mqtt_topic_relay4_string = mqtt_topic_relay_string + "/relay4";   //constructing the relay4 string
-        const char* mqtt_topic_relay4 = mqtt_topic_relay4_string.c_str();   //converting relay4 string to a char*
+        const char* mqtt_topic_relay4 = (relay_topic + "/relay4").c_str();
       #endif
       //includs for the relays
       #include <relay.h>
@@ -185,12 +170,15 @@ The sensors and actuators that are used are also configured in the code. The sen
     #ifdef LDR
       LDR_sensor(LDR_pin,send_data);
     #endif
+
     #ifdef dallas_temp
       dallas_temps_loop(dallas_temp_pin,send_data);
     #endif
+
     #ifdef motion_detector
       motino_detector_loop(motion_detector_pin,send_data);
     #endif
+    
     #ifdef relay
       relay_loop();
     #endif
