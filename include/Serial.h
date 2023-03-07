@@ -1,7 +1,9 @@
 //voids setup serial monitor
 void Serial_setup() {
   Serial.begin(Serial_baudrate);
+#ifdef logo
   LOGO();
+#endif
   Serial.println("");
 
   //print the config to the serial monitor

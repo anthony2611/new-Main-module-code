@@ -1,4 +1,4 @@
-//!this code uses better comments extaion (vscode) for better understanding and reading
+//this code uses better comments extaion (vscode) for better understanding and reading
 //################################################# LIBRARIES ##############################################################
 //!do not change the libraries!
   #include <Arduino.h>
@@ -22,15 +22,15 @@
 /*
 IoT system code for an ESP8266 microcontroller that uses Wi-Fi and MQTT to communicate with a server. It includes the ability to read data from various sensors and control actuators (relays).
 There are several configurations that need to be set up, including serial communication baud rate, Wi-Fi SSIDs and passwords, MQTT server IP and port, and device name.
-
-
-
+The sensors and actuators that are used are also configured in the code. The sensors that can be used are: Dallas temperature sensor, LDR sensor, and motion detector.
 */
 
 //################################################# Config ##############################################################
 
 //serial config
   #define Serial_baudrate 115200        //baudrate for serial communication
+  //comment the line below if you dont want to see the logo and also save some memory
+  #define logo                            //logo for the serial monitor
 
 //wifi config
   #define WIFI_SSID1 ""              //wifi name 1
@@ -83,25 +83,24 @@ There are several configurations that need to be set up, including serial commun
     String mqtt_topic;
     String mqtt_payload;
 
-    //gereating the mqtt_device_topic_string and any other mqtt stuff
-    String mqtt_device_topic_string = main_topic + device_name;           //device topic as string if needed
-    const char* mqtt_device_topic = mqtt_device_topic_string.c_str();     //device topic as char* if needed
-    String mqtt_topic_IP_string = mqtt_device_topic_string + "/ip";       //constructing the IP adress string
-    const char* mqtt_topic_IP = mqtt_topic_IP_string.c_str();             //converting IP string to a char*
-    String mqtt_topic_MAC_string = mqtt_device_topic_string + "/mac";     //constructing the Mac adress string
-    const char* mqtt_topic_MAC = mqtt_topic_MAC_string.c_str();           //converting the mac string to a char*
-    String mqtt_topic_command_string = mqtt_device_topic_string + "/command"; //constructing the command line string
-    const char* mqtt_topic_command = mqtt_topic_command_string.c_str();           //converting the command string to a char*
-    String mqtt_topic_pub_string = mqtt_device_topic_string + "/pub";     //not needed yet
-    const char* mqtt_topic_pub = mqtt_topic_pub_string.c_str();           //not needed yet
-    String mqtt_topic_pub_status_string = mqtt_device_topic_string + "/status"; //constructing the status string
-    const char* mqtt_topic_pub_status = mqtt_topic_pub_status_string.c_str();   //converting status string to a char*
-
-
-
+      //gereating the mqtt_device_topic_string and any other mqtt stuff
+      String mqtt_device_topic_string = main_topic + device_name;           //device topic as string if needed
+      const char* mqtt_device_topic = mqtt_device_topic_string.c_str();     //device topic as char* if needed
+      String mqtt_topic_IP_string = mqtt_device_topic_string + "/ip";       //constructing the IP adress string
+      const char* mqtt_topic_IP = mqtt_topic_IP_string.c_str();             //converting IP string to a char*
+      String mqtt_topic_MAC_string = mqtt_device_topic_string + "/mac";     //constructing the Mac adress string
+      const char* mqtt_topic_MAC = mqtt_topic_MAC_string.c_str();           //converting the mac string to a char*
+      String mqtt_topic_command_string = mqtt_device_topic_string + "/command"; //constructing the command line string
+      const char* mqtt_topic_command = mqtt_topic_command_string.c_str();           //converting the command string to a char*
+      String mqtt_topic_pub_string = mqtt_device_topic_string + "/pub";     //not needed yet
+      const char* mqtt_topic_pub = mqtt_topic_pub_string.c_str();           //not needed yet
+      String mqtt_topic_pub_status_string = mqtt_device_topic_string + "/status"; //constructing the status string
+      const char* mqtt_topic_pub_status = mqtt_topic_pub_status_string.c_str();   //converting status string to a char*
 
 //################################################# MY Headers/Libs and some more string genrating ##############################################################
+#ifdef logo
   #include <LOGO.h>
+#endif
   #include <OTAupdater.h>
   #include <WIFI.h>
   #include <MQTT.h>
