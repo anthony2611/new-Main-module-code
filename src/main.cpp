@@ -85,8 +85,8 @@ There are several configurations that need to be set up, including serial commun
     const char* mqtt_topic_IP = mqtt_topic_IP_string.c_str();             //converting IP string to a char*
     String mqtt_topic_MAC_string = mqtt_device_topic_string + "/mac";     //constructing the Mac adress string
     const char* mqtt_topic_MAC = mqtt_topic_MAC_string.c_str();           //converting the mac string to a char*
-    String mqtt_topic_sub_string = mqtt_device_topic_string + "/command"; //constructing the command line string
-    const char* mqtt_topic_sub = mqtt_topic_sub_string.c_str();           //converting the command string to a char*
+    String mqtt_topic_command_string = mqtt_device_topic_string + "/command"; //constructing the command line string
+    const char* mqtt_topic_command = mqtt_topic_command_string.c_str();           //converting the command string to a char*
     String mqtt_topic_pub_string = mqtt_device_topic_string + "/pub";     //not needed yet
     const char* mqtt_topic_pub = mqtt_topic_pub_string.c_str();           //not needed yet
     String mqtt_topic_pub_status_string = mqtt_device_topic_string + "/status"; //constructing the status string
@@ -105,19 +105,30 @@ There are several configurations that need to be set up, including serial commun
 
   //includs for the sensor that are enabled
     #ifdef dallas_temp
+      //topic for the dell temp sensor
+      String mqtt_device_topic_string_temp = mqtt_device_topic_string + "/temp";
+      const char* mqtt_device_topic_temp = mqtt_device_topic_string_temp.c_str();
       #include <dells_temp.h>
     #endif
+
     #ifdef LDR
+      //topic for the LDR
+      String mqtt_device_topic_string_LDR = mqtt_device_topic_string + "/LDR";
+      const char* mqtt_device_topic_LDR = mqtt_device_topic_string_LDR.c_str();
       #include <LDR.h>
     #endif
+
     #ifdef motion_detector
+       //topic for the motion detector
+      String mqtt_device_topic_string_motion = mqtt_device_topic_string + "/motion";
+      const char* mqtt_device_topic_motion = mqtt_device_topic_string_motion.c_str();
       #include <motion_detector.h>
     #endif
+
     #ifdef relay
       //topic for the relays
       String mqtt_topic_relay_string = relay_tpoic + device_name;           //device topic as string if needed
       const char* mqtt_topic_relay = mqtt_topic_relay_string.c_str();       //device topic as char* if needed
-
       //making topic for eche defined relay
       #ifdef relay1
         String mqtt_topic_relay1_string = mqtt_topic_relay_string + "/relay1";   //constructing the relay1 string

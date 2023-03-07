@@ -2,6 +2,20 @@
 
 String payloadString = "";
 
+/*this is the main MQTT function 
+this runs any time the server sends a command or String to the client
+
+#################################################################################
+avelable commands are:
+  hello mqtt_client     - the server will respond with hello server
+  get                   - the server will respond with the data of the sensors
+  get ip                - the server will respond with the ip of the mqtt_client
+  get mac               - the server will respond with the mac of the mqtt_client 
+#################################################################################
+this commands are only avalable on the mqtt command topic (mqtt_topic_command: [main_tpoic]/[device_name]/command)
+any other tpics will be ignored or processed somewhere else in the code for example the relays in the relay.h file
+ */
+
 //the callback function for the mqtt mqtt_client
 void callback(char* topic, byte* payload, unsigned int length) {
   Serial.print("Message arrived at tpic: ");
@@ -12,7 +26,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
   }
   Serial.println(payloadString);
   //checks if the topic is the command topic
-  if (String(topic) == mqtt_topic_sub) {
+  if (String(topic) == mqtt_topic_command) {
 
         // if the payload is "hello mqtt_client" then print "hello server" to status topic
       if (payloadString == "hello mqtt_client") {
@@ -48,7 +62,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
           payloadString.clear();
       }
       //clean the command topic
-      mqtt_client.publish(mqtt_topic_sub, "");
+      mqtt_client.publish(mqtt_topic_command, "");
   }
   //make topic and payload global
   mqtt_topic = topic;
@@ -67,7 +81,7 @@ void PubSubClient_reconnect() {
     Serial.print("Attempting MQTT connection...");
     if (mqtt_client.connect(device_name)) {
       Serial.println("connected");
-      mqtt_client.subscribe(mqtt_topic_sub);
+      mqtt_client.subscribe(mqtt_topic_command);
     } else {
       Serial.print("failed, rc=");
       Serial.print(mqtt_client.state());

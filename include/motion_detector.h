@@ -1,7 +1,4 @@
  int last_motion;
- //add /motion to mqtt_device_topic
-String mqtt_device_topic_string_motion = mqtt_device_topic_string + "/motion";
-const char* mqtt_device_topic_motion = mqtt_device_topic_string_motion.c_str();
 
 
 //handels the motion sensor and sends the data to the server if ask or if the detector chanced value (connet a resistor to the pin to gound it)
