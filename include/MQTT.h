@@ -78,6 +78,12 @@ void PubSubClient_reconnect() {
     if (mqtt_client.connect(device_name)) {
       Serial.println("connected");
       mqtt_client.subscribe(mqtt_topic_command);
+        String ip = WiFi.localIP().toString().c_str();
+        mqtt_client.publish(mqtt_topic_ip,ip.c_str());
+        Serial.println("send ip to server");
+        String mac = WiFi.macAddress().c_str();
+        mqtt_client.publish(mqtt_topic_mac,mac.c_str());
+        Serial.println("send mac to server");
     } else {
       Serial.print("failed, rc=");
       Serial.print(mqtt_client.state());
@@ -94,12 +100,7 @@ void PubSubClient_reconnect() {
      ESP.restart();
   }
 
-  String ip = WiFi.localIP().toString().c_str();
-  mqtt_client.publish(mqtt_topic_ip,ip.c_str());
-  Serial.println("send ip to server");
-  String mac = WiFi.macAddress().c_str();
-  mqtt_client.publish(mqtt_topic_mac,mac.c_str());
-  Serial.println("send mac to server");
+
 
 }
 
